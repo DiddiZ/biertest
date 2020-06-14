@@ -8,7 +8,7 @@ def visualize_ratings(file_name, ratings, labels, show=False, figsize=(16, 9)):
     ax1.grid(linestyle=':')
 
     # Plot ratings
-    ax1.boxplot(ratings.T, whis='range', labels=labels)
+    ax1.boxplot(ratings.T, whis=[0, 100], labels=labels)
 
     if file_name is not None:
         #fig.savefig(file_name + ".pdf", bbox_inches='tight', pad_inches=0)
