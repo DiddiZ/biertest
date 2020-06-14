@@ -1,3 +1,4 @@
+import numpy as np
 import matplotlib.pyplot as plt
 
 
@@ -8,7 +9,8 @@ def visualize_ratings(file_name, ratings, labels, show=False, figsize=(16, 9)):
     ax1.grid(linestyle=':')
 
     # Plot ratings
-    ax1.boxplot(ratings.T, whis=[0, 100], labels=labels)
+    ratings = [rating[~np.isnan(rating)] for rating in ratings]  # Filter NaN values
+    ax1.boxplot(ratings, whis=[0, 100], labels=labels)
 
     if file_name is not None:
         #fig.savefig(file_name + ".pdf", bbox_inches='tight', pad_inches=0)
