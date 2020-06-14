@@ -4,7 +4,7 @@ from sklearn.preprocessing import StandardScaler
 from visualizations import visualize_ratings, visualize_ratings_per_person, visualize_ratings_per_price
 
 # Load data
-df = pd.read_csv('ratings_2019-05-01.csv', index_col=0)
+df = pd.read_csv('data/ratings_2019-05-01.csv', index_col=0)
 
 # Normalize ratings
 ratings = df.values[:, 2:]
