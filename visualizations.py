@@ -25,11 +25,15 @@ def __add_name_labels(ax, xs, ys):
     ax.set_xticks([], minor=True)
 
 
-def visualize_ratings(file_name, df, x='beer', show=False, figsize=(16, 9)):
+def visualize_ratings(file_name, df, x='beer', plot_type="box", show=False, figsize=(16, 9)):
     fig = plt.figure(figsize=figsize)
 
     # Plot ratings
-    ax = sns.boxplot(data=df, x=x, y='normalized rating', whis=[0, 100])
+
+    if plot_type == "box":
+        ax = sns.boxplot(data=df, x=x, y='normalized rating', whis=[0, 100])
+    elif plot_type == "violin":
+        ax = sns.violinplot(data=df, x=x, y='normalized rating', inner="point", bw=0.15, scale="count")
     ax.grid(linestyle=':')
 
     # Add nice name labels
