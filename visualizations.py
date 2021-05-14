@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib.ticker as mtick
 import seaborn as sns
 
 
@@ -69,14 +70,7 @@ def visualize_ratings_per_price(file_name, df, show=False, figsize=(16, 9)):
     )
 
     # Plot ratings
-    ax = sns.scatterplot(
-        data=data,
-        x='price',
-        y='rating',
-        s=50,
-        color="black",
-        edgecolor=(0, 0, 0, 0),
-    )
+    ax = sns.scatterplot(data=data, x='price', y='rating', s=50, color="black", edgecolor=(0, 0, 0, 0))
     ax.set_xlabel('€ / l')
     ax.set_ylabel('normalized rating')
     ax.grid(linestyle=':')
@@ -98,6 +92,54 @@ def visualize_ratings_per_price(file_name, df, show=False, figsize=(16, 9)):
         extent=plt.xlim() + plt.ylim(),
         aspect="auto"
     )
+
+    plt.tight_layout()
+    if file_name is not None:
+        fig.savefig(file_name)
+    if show:
+        plt.show()
+    plt.close(fig)
+
+
+def visualize_alcohol_per_beer(file_name, df, show=False, figsize=(16, 9)):
+    fig = plt.figure(figsize=figsize)
+
+    data = df.sort_values(['vol', 'beer']).groupby('beer', sort=False).agg(
+        beer=pd.NamedAgg(column='beer', aggfunc="first"),
+        rating=pd.NamedAgg(column='normalized rating', aggfunc="mean"),
+        vol=pd.NamedAgg(column='vol', aggfunc="first"),
+    )
+
+    # Plot ratings
+    ax = sns.scatterplot(data=data, x='vol', y='rating', s=50, color="black", edgecolor=(0, 0, 0, 0))
+    ax.grid(linestyle=':')
+    ax.xaxis.set_major_formatter(mtick.PercentFormatter())
+
+    # Plot trend fit
+    from sklearn.linear_model import LinearRegression
+    reg = LinearRegression().fit(data['vol'].values.reshape(-1, 1), data['rating'])
+    plt.plot(
+        plt.xlim(),
+        reg.predict(np.array(plt.xlim()).reshape(-1, 1)),
+        linewidth=1,
+        color="black",
+        linestyle="dashed",
+        label="Trend"
+    )
+    plt.legend()
+
+    for _, beer, rating, vol in data.itertuples():
+        ax.annotate(
+            beer,
+            xytext=(8, -5),
+            textcoords='offset pixels',
+            xy=(vol, rating),
+            bbox=dict(
+                boxstyle="round",
+                ec=(1, 1, 1, 0),
+                fc=(1, 1, 1, 0.7),
+            ),
+        )
 
     plt.tight_layout()
     if file_name is not None:

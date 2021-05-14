@@ -1,7 +1,7 @@
 from pathlib import Path
 import numpy as np
 import pandas as pd
-from visualizations import visualize_ratings, visualize_ratings_per_person, visualize_ratings_per_price
+from visualizations import visualize_ratings, visualize_ratings_per_person, visualize_ratings_per_price, visualize_alcohol_per_beer
 
 
 def generate_plots(dataset, target):
@@ -22,6 +22,8 @@ def generate_plots(dataset, target):
 
     visualize_ratings(target + 'ratings_average.png', df)
     visualize_ratings_per_person(target + 'ratings_per_person.png', df)
+    if 'vol' in df.columns:
+        visualize_alcohol_per_beer(target + 'ratings_per_vol.png', df)
     if 'price' in df.columns:
         visualize_ratings_per_price(target + 'ratings_per_price.png', df)
     if 'origin' in df.columns:
