@@ -1,15 +1,15 @@
-beer,vol,origin,A,MP,MK,R
-Březňák Original,5.1,Tschechien,7.0,7,5.0,6.5
-Krušovice Schwarzbier,3.8,Tschechien,6.5,5,4.0,6.0
-Gambrinus Premium 12,5.2,Tschechien,4.0,4,4.5,4.5
-Efes Pilsener,4.9,Türkei,8.0,6,8.0,8.0
-Desperados Original,5.9,Niederlande,9.0,8,9.0,8.5
-Lech Premium,5.0,Polen,6.0,7,6.0,7.0
-Stiegl Goldbräu,5.0,Österreich,6.0,5,5.0,5.5
-Gösser NaturHell,4.9,Österreich,6.0,6,4.5,6.5
-Staropramen Premium,5.0,Tschechien,7.5,5,4.0,7.5
-Zipfer Märzen,5.0,Österreich,5.0,5,5.0,4.5
-Propeller Nachtflug,9.1,Deutschland,7.5,5,4.0,3.0
-La Chouffe Blonde,8.0,Belgien,7.0,4,6.0,4.0
-Heineken,5.0,Niederlande,3.0,5,5.0,7.0
-Schöfferhofer Grapefruit,2.5,Deutschland,10.0,8,8.0,9.0
+beer,type,vol,origin,A,MP,MK,R
+Březňák Original,Pilsner,5.1,Tschechien,7.0,7,5.0,6.5
+Krušovice Schwarzbier,Schwarzbier,3.8,Tschechien,6.5,5,4.0,6.0
+Gambrinus Premium 12,Pilsner,5.2,Tschechien,4.0,4,4.5,4.5
+Efes Pilsener,Pilsner,4.9,Türkei,8.0,6,8.0,8.0
+Desperados Original,Biermischgetränk,5.9,Niederlande,9.0,8,9.0,8.5
+Lech Premium,Lager,5.0,Polen,6.0,7,6.0,7.0
+Stiegl Goldbräu,Lager,5.0,Österreich,6.0,5,5.0,5.5
+Gösser NaturHell,Helles,4.9,Österreich,6.0,6,4.5,6.5
+Staropramen Premium,Lager,5.0,Tschechien,7.5,5,4.0,7.5
+Zipfer Märzen,Märzen,5.0,Österreich,5.0,5,5.0,4.5
+Propeller Nachtflug,Imperial Stout,9.1,Nordrhein-Westfalen,7.5,5,4.0,3.0
+La Chouffe Blonde,Blonde,8.0,Belgien,7.0,4,6.0,4.0
+Heineken,Lager,5.0,Niederlande,3.0,5,5.0,7.0
+Schöfferhofer Grapefruit,Biermischgetränk,2.5,Hessen,10.0,8,8.0,9.0

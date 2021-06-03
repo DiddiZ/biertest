@@ -28,6 +28,8 @@ def generate_plots(dataset, target):
         visualize_ratings_per_price(target + 'ratings_per_price.png', df)
     if 'origin' in df.columns:
         visualize_ratings(target + 'ratings_by_origin.png', df, x='origin', plot_type="violin")
+    if 'type' in df.columns:
+        visualize_ratings(target + 'ratings_by_type.png', df, x='type', plot_type="violin")
 
 
 if __name__ == "__main__":
