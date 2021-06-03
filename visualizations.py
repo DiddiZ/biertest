@@ -8,7 +8,7 @@ import seaborn as sns
 def __add_name_labels(ax, xs, ys):
     last_y_pos = 9999
     for i, name in enumerate(xs):
-        y_pos = ys[i] - 0.1
+        y_pos = ys[name] - 0.1
         if np.abs(y_pos - last_y_pos) < 0.1:
             y_pos = last_y_pos - 0.1
         last_y_pos = y_pos
@@ -25,19 +25,21 @@ def __add_name_labels(ax, xs, ys):
     ax.set_xticks([], minor=True)
 
 
-def visualize_ratings(file_name, df, x='beer', plot_type="box", show=False, figsize=(16, 9)):
+def visualize_ratings(file_name, df, x='beer', plot_type="box", show=False, figsize=(16, 9), sort=False):
+    order = df.groupby(x).median()['normalized rating'].sort_values(ascending=False).index if sort else df[x].unique()
+
     fig = plt.figure(figsize=figsize)
 
     # Plot ratings
 
     if plot_type == "box":
-        ax = sns.boxplot(data=df, x=x, y='normalized rating', whis=[0, 100])
+        ax = sns.boxplot(data=df, x=x, y='normalized rating', order=order, whis=[0, 100])
     elif plot_type == "violin":
-        ax = sns.violinplot(data=df, x=x, y='normalized rating', inner="point", bw=0.15, scale="count")
+        ax = sns.violinplot(data=df, x=x, y='normalized rating', order=order, inner="point", bw=0.15, scale="count")
     ax.grid(linestyle=':')
 
     # Add nice name labels
-    __add_name_labels(ax, xs=df[x].unique(), ys=df.groupby(x, sort=False)['normalized rating'].min())
+    __add_name_labels(ax, xs=order, ys=df.groupby(x, sort=False)['normalized rating'].min())
 
     plt.tight_layout()
     if file_name is not None:
