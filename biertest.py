@@ -8,7 +8,7 @@ def generate_plots(dataset, target):
     # Load data
     df = pd.read_csv(dataset)
 
-    persons = [c for c in df.columns if c not in ["beer", "vol", "price", "origin"]]
+    persons = [c for c in df.columns if c not in ["beer", "type", "vol", "price", "origin"]]
 
     # Normalize ratings
     for person in persons:
@@ -34,3 +34,4 @@ if __name__ == "__main__":
     generate_plots('data/ratings_2019-05-01.csv', 'plots/2019-05-01/')
     generate_plots('data/ratings_2020-06-06.csv', 'plots/2020-06-06/')
     generate_plots('data/ratings_2021-05-13.csv', 'plots/2021-05-13/')
+    generate_plots('data/ratings_2021-06-02.csv', 'plots/2021-06-02/')
