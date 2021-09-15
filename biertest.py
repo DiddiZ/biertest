@@ -1,7 +1,11 @@
 from pathlib import Path
+
 import numpy as np
 import pandas as pd
-from visualizations import visualize_ratings, visualize_ratings_per_person, visualize_ratings_per_price, visualize_alcohol_per_beer
+
+from visualizations import (
+    visualize_alcohol_per_beer, visualize_ratings, visualize_ratings_per_person, visualize_ratings_per_price
+)
 
 
 def generate_plots(dataset, target, is_overall=False):
