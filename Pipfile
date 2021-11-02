@@ -15,6 +15,3 @@ flake8 = "*"
 flake8-docstrings = "*"
 yapf = "*"
 isort = "*"
-
-[requires]
-python_version = "3.8"
