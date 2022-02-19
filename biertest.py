@@ -46,8 +46,12 @@ if __name__ == "__main__":
     generate_plots('data/ratings_2021-05-13.csv', 'plots/2021-05-13/')
     generate_plots('data/ratings_2021-06-02.csv', 'plots/2021-06-02/')
     generate_plots('data/ratings_2021-06-30.csv', 'plots/2021-06-30/')
+    generate_plots('data/ratings_2022-02-18.csv', 'plots/2022-02-18/')
     generate_plots(
-        ['data/ratings_2021-05-13.csv', 'data/ratings_2021-06-02.csv', 'data/ratings_2021-06-30.csv'],
+        [
+            'data/ratings_2021-05-13.csv', 'data/ratings_2021-06-02.csv', 'data/ratings_2021-06-30.csv',
+            'data/ratings_2022-02-18.csv'
+        ],
         'plots/overall/',
         is_overall=True
     )

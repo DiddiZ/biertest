@@ -1,0 +1,13 @@
+beer,type,vol,origin,R,H,Z,C,MP,MK
+Aecht Schlenkerla Rauchbier Märzen,Rauchbier,5.1,Bayern,4.0,6.0,,6.0,7.0,2.0
+Augustiner Bräu Edelstoff,Export,5.6,Bayern,5.0,5.0,2.0,2.0,5.0,4.5
+Einbecker Ur-Bock Hell,Bockbier,6.5,Niedersachsen,2.5,3.0,5.0,6.5,3.0,3.0
+Duckstein Rotblond Original,Red Ale,4.9,Hamburg,8.0,7.0,8.0,7.0,6.0,8.0
+Störtebeker Pilsener-Bier,Pilsner,4.9,Mecklenburg-Vorpommern,7.0,7.5,10.0,5.5,6.5,6.0
+Zötler Braukunst Schwarzer Ritter,Baltic Porter,7.7,Bayern,8.0,6.0,10.0,8.0,6.0,6.0
+Fürstlich Drehna Odin-Trunk,Honigbier,5.4,Brandenburg,9.0,9.0,9.0,7.5,9.5,8.5
+Krusovice Royal Premium Pils,Pilsner,5.0,Tschechien,3.5,5.0,4.0,3.0,4.0,4.0
+Cornelius Abtei 1839 Bourbon Barrel,Doppelbock,8.0,Nordrhein-Westfalen,8.0,7.0,10.0,2.0,10.0,9.0
+Insel-Brauerei Baltic Stout,Stout,7.5,Mecklenburg-Vorpommern,2.0,4.0,6.0,6.0,2.0,1.5
+Ayinger Celebrator,Doppelbock,6.7,Bayern,6.0,,9.0,,4.0,3.0
+Holsten Pilsener,Pilsner,4.8,Hamburg,5.0,,8.0,5.0,4.0,4.0
