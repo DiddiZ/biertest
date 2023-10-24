@@ -13,11 +13,16 @@ def __add_name_labels(ax, xs, ys):
             y_pos = last_y_pos - 0.1
         last_y_pos = y_pos
         ax.text(
-            i, y_pos, name, ha="center", va="center", bbox=dict(
-                boxstyle="round",
-                ec=(1, 1, 1, 0),
-                fc=(1, 1, 1, 0.7),
-            )
+            i,
+            y_pos,
+            name,
+            ha="center",
+            va="center",
+            bbox={
+                "boxstyle": "round",
+                "ec": (1, 1, 1, 0),
+                "fc": (1, 1, 1, 0.7),
+            },
         )
 
     # Remove original ticks
@@ -25,21 +30,22 @@ def __add_name_labels(ax, xs, ys):
     ax.set_xticks([], minor=True)
 
 
-def visualize_ratings(file_name, df, x='beer', plot_type="box", show=False, figsize=(16, 9), sort=False):
-    order = df.groupby(x).median()['normalized rating'].sort_values(ascending=False).index if sort else df[x].unique()
+def visualize_ratings(file_name, df, x="beer", plot_type="box", show=False, figsize=(16, 9), sort=False):
+    """Visualize ratings per beer."""
+    order = df.groupby(x).median()["normalized rating"].sort_values(ascending=False).index if sort else df[x].unique()
 
     fig = plt.figure(figsize=figsize)
 
     # Plot ratings
 
     if plot_type == "box":
-        ax = sns.boxplot(data=df, x=x, y='normalized rating', order=order, whis=[0, 100])
+        ax = sns.boxplot(data=df, x=x, y="normalized rating", order=order, whis=[0, 100])
     elif plot_type == "violin":
-        ax = sns.violinplot(data=df, x=x, y='normalized rating', order=order, inner="point", bw=0.15, scale="count")
-    ax.grid(linestyle=':')
+        ax = sns.violinplot(data=df, x=x, y="normalized rating", order=order, inner="point", bw=0.15, scale="count")
+    ax.grid(linestyle=":")
 
     # Add nice name labels
-    __add_name_labels(ax, xs=order, ys=df.groupby(x, sort=False)['normalized rating'].min())
+    __add_name_labels(ax, xs=order, ys=df.groupby(x, sort=False)["normalized rating"].min())
 
     plt.tight_layout()
     if file_name is not None:
@@ -50,13 +56,14 @@ def visualize_ratings(file_name, df, x='beer', plot_type="box", show=False, figs
 
 
 def visualize_ratings_per_person(file_name, df, show=False, figsize=(16, 9)):
+    """Visualize ratings per person."""
     fig = plt.figure(figsize=figsize)
 
-    ax = sns.scatterplot(data=df, x='beer', y='normalized rating', hue='person', s=50, edgecolor=(0, 0, 0, 0))
-    ax.grid(linestyle=':')
+    ax = sns.scatterplot(data=df, x="beer", y="normalized rating", hue="person", s=50, edgecolor=(0, 0, 0, 0))
+    ax.grid(linestyle=":")
 
     # Add nice name labels
-    __add_name_labels(ax, xs=df['beer'].unique(), ys=df.groupby('beer', sort=False)['normalized rating'].min())
+    __add_name_labels(ax, xs=df["beer"].unique(), ys=df.groupby("beer", sort=False)["normalized rating"].min())
 
     plt.tight_layout()
     if file_name is not None:
@@ -67,25 +74,26 @@ def visualize_ratings_per_person(file_name, df, show=False, figsize=(16, 9)):
 
 
 def visualize_ratings_per_price(file_name, df, show=False, figsize=(16, 9)):
+    """Visualize ratings per price."""
     fig = plt.figure(figsize=figsize)
 
-    data = df.groupby('beer').agg(
-        price=pd.NamedAgg(column='price', aggfunc="first"),
-        rating=pd.NamedAgg(column='normalized rating', aggfunc="mean"),
-        beer=pd.NamedAgg(column='beer', aggfunc="first"),
+    data = df.groupby("beer").agg(
+        price=pd.NamedAgg(column="price", aggfunc="first"),
+        rating=pd.NamedAgg(column="normalized rating", aggfunc="mean"),
+        beer=pd.NamedAgg(column="beer", aggfunc="first"),
     )
 
     # Plot ratings
-    ax = sns.scatterplot(data=data, x='price', y='rating', s=50, color="black", edgecolor=(0, 0, 0, 0))
-    ax.set_xlabel('€ / l')
-    ax.set_ylabel('normalized rating')
-    ax.grid(linestyle=':')
+    ax = sns.scatterplot(data=data, x="price", y="rating", s=50, color="black", edgecolor=(0, 0, 0, 0))
+    ax.set_xlabel("€ / l")
+    ax.set_ylabel("normalized rating")
+    ax.grid(linestyle=":")
 
     for _, price, rating, beer in data.itertuples():
         ax.annotate(
             beer,
             xytext=(8, -5),
-            textcoords='offset pixels',
+            textcoords="offset pixels",
             xy=(price, rating),
         )
 
@@ -94,9 +102,9 @@ def visualize_ratings_per_price(file_name, df, show=False, figsize=(16, 9)):
     ax.imshow(
         [[1, 0.5], [0.5, 0]],
         cmap=plt.cm.RdYlGn,
-        interpolation='bicubic',
+        interpolation="bicubic",
         extent=plt.xlim() + plt.ylim(),
-        aspect="auto"
+        aspect="auto",
     )
 
     plt.tight_layout()
@@ -108,29 +116,35 @@ def visualize_ratings_per_price(file_name, df, show=False, figsize=(16, 9)):
 
 
 def visualize_alcohol_per_beer(file_name, df, show=False, figsize=(16, 9)):
+    """Visualize rating by alcohol content."""
     fig = plt.figure(figsize=figsize)
 
-    data = df.sort_values(['vol', 'beer']).groupby('beer', sort=False).agg(
-        beer=pd.NamedAgg(column='beer', aggfunc="first"),
-        rating=pd.NamedAgg(column='normalized rating', aggfunc="mean"),
-        vol=pd.NamedAgg(column='vol', aggfunc="first"),
+    data = (
+        df.sort_values(["vol", "beer"])
+        .groupby("beer", sort=False)
+        .agg(
+            beer=pd.NamedAgg(column="beer", aggfunc="first"),
+            rating=pd.NamedAgg(column="normalized rating", aggfunc="mean"),
+            vol=pd.NamedAgg(column="vol", aggfunc="first"),
+        )
     )
 
     # Plot ratings
-    ax = sns.scatterplot(data=data, x='vol', y='rating', s=50, color="black", edgecolor=(0, 0, 0, 0))
-    ax.grid(linestyle=':')
+    ax = sns.scatterplot(data=data, x="vol", y="rating", s=50, color="black", edgecolor=(0, 0, 0, 0))
+    ax.grid(linestyle=":")
     ax.xaxis.set_major_formatter(mtick.PercentFormatter())
 
     # Plot trend fit
     from sklearn.linear_model import LinearRegression
-    reg = LinearRegression().fit(data['vol'].values.reshape(-1, 1), data['rating'])
+
+    reg = LinearRegression().fit(data["vol"].values.reshape(-1, 1), data["rating"])
     plt.plot(
         plt.xlim(),
         reg.predict(np.array(plt.xlim()).reshape(-1, 1)),
         linewidth=1,
         color="black",
         linestyle="dashed",
-        label="Trend"
+        label="Trend",
     )
     plt.legend()
 
@@ -138,13 +152,13 @@ def visualize_alcohol_per_beer(file_name, df, show=False, figsize=(16, 9)):
         ax.annotate(
             beer,
             xytext=(8, -5),
-            textcoords='offset pixels',
+            textcoords="offset pixels",
             xy=(vol, rating),
-            bbox=dict(
-                boxstyle="round",
-                ec=(1, 1, 1, 0),
-                fc=(1, 1, 1, 0.7),
-            ),
+            bbox={
+                "boxstyle": "round",
+                "ec": (1, 1, 1, 0),
+                "fc": (1, 1, 1, 0.7),
+            },
         )
 
     plt.tight_layout()
