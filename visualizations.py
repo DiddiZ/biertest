@@ -32,16 +32,18 @@ def __add_name_labels(ax, xs, ys):
 
 def visualize_ratings(file_name, df, x="beer", plot_type="box", show=False, figsize=(16, 9), sort=False):
     """Visualize ratings per beer."""
-    order = df.groupby(x).median()["normalized rating"].sort_values(ascending=False).index if sort else df[x].unique()
+    order = df.groupby(x)["normalized rating"].median().sort_values(ascending=False).index if sort else df[x].unique()
 
     fig = plt.figure(figsize=figsize)
 
     # Plot ratings
 
     if plot_type == "box":
-        ax = sns.boxplot(data=df, x=x, y="normalized rating", order=order, whis=[0, 100])
+        ax = sns.boxplot(data=df, x=x, y="normalized rating", hue=x, order=order, whis=[0, 100])
     elif plot_type == "violin":
-        ax = sns.violinplot(data=df, x=x, y="normalized rating", order=order, inner="point", bw=0.15, scale="count")
+        ax = sns.violinplot(
+            data=df, x=x, y="normalized rating", hue=x, order=order, inner="point", density_norm="count"
+        )
     ax.grid(linestyle=":")
 
     # Add nice name labels
